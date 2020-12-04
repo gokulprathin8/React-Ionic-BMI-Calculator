@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { IonApp, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonApp, IonAlert, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -26,6 +26,7 @@ import BmiResult from './components/BmiResult';
 
 const App: React.FC = () => {
   const [ caluculatedBMI, setCaluculatedBMI ] = useState<number>();
+  const [ error, setError ] = useState<string>();
 
 
   const weightInputRef = useRef<HTMLIonInputElement>(null);
@@ -37,6 +38,7 @@ const App: React.FC = () => {
     const enteredHeight = heightInputRef.current!.value;
 
     if (!enteredHeight || !enteredWeight || +enteredWeight <= 0 || +enteredHeight <= 0) {
+      setError('Please enter a valid  (non-negetive) input value');
       return;
     }
 
@@ -49,7 +51,13 @@ const App: React.FC = () => {
     heightInputRef.current!.value = "";
   };
 
+  const clearError = () => {
+    setError('');
+  }
+
   return (
+    <React.Fragment>
+      <IonAlert isOpen={!!error} message={error} buttons={[{text: 'Ok', handler: clearError }]} />
   <IonApp>
     
     <IonHeader>
@@ -95,6 +103,7 @@ const App: React.FC = () => {
     </IonContent>
 
   </IonApp>
+  </React.Fragment>
   );
 };
 
