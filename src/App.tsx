@@ -36,7 +36,7 @@ const App: React.FC = () => {
     const enteredWeight = weightInputRef.current!.value;
     const enteredHeight = heightInputRef.current!.value;
 
-    if (!enteredHeight || !enteredWeight) {
+    if (!enteredHeight || !enteredWeight || +enteredWeight <= 0 || +enteredHeight <= 0) {
       return;
     }
 
@@ -53,8 +53,8 @@ const App: React.FC = () => {
   <IonApp>
     
     <IonHeader>
-      <IonToolbar>
-        <IonTitle>BMI Caluculator</IonTitle>
+      <IonToolbar color="primary">
+        <IonTitle>BMI Calculator</IonTitle>
       </IonToolbar>
     </IonHeader>
 
@@ -66,7 +66,7 @@ const App: React.FC = () => {
             <IonItem>
 
               <IonLabel position="floating">Your Height</IonLabel>
-              <IonInput ref={heightInputRef}></IonInput>
+              <IonInput type="number" ref={heightInputRef}></IonInput>
 
             </IonItem>
           </IonCol>
@@ -77,7 +77,7 @@ const App: React.FC = () => {
             <IonItem>
 
               <IonLabel position="floating">Your Height</IonLabel>
-              <IonInput ref={weightInputRef}></IonInput>
+              <IonInput type="number" ref={weightInputRef}></IonInput>
 
             </IonItem>
           </IonCol>
